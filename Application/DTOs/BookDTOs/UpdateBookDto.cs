@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.AuthorDTOs;
+using Application.DTOs.JanrDtos;
 
 namespace Application.DTOs.BookDTOs;
 
