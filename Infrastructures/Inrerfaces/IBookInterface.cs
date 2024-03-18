@@ -2,7 +2,7 @@
 
 namespace Infrastructures.Inrerfaces;
 
-internal interface IBookInterface : IRepository<Book>
+public interface IBookInterface : IRepository<Book>
 {
     Task<List<Book>> GetAllWithAuthorAsync();
 }
