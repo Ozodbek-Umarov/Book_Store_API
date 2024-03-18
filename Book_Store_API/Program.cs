@@ -1,3 +1,8 @@
+using Application.Common;
+using Application.Validators;
+using AutoMapper;
+using Domain.Entities;
+using FluentValidation;
 using Infrastructures;
 using Infrastructures.Inrerfaces;
 using Infrastructures.Repositories;
@@ -16,6 +21,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("LocalDB")));
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+//add AutoMapper
+var mapperConfig = new MapperConfiguration(mc =>
+{
+    mc.AddProfile(new AutoMapperProfile());
+});
+
+builder.Services.AddSingleton(mapperConfig.CreateMapper());
+builder.Services.AddScoped<IValidator<Author>, AuthorValidator>();
+builder.Services.AddScoped<IValidator<Janr>, JanrValidator>();
+builder.Services.AddScoped<IValidator<Book>, BookValidator>();
 
 var app = builder.Build();
 

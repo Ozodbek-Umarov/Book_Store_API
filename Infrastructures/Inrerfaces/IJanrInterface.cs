@@ -2,7 +2,7 @@
 
 namespace Infrastructures.Inrerfaces;
 
-internal interface IJanrInterface : IRepository<Janr>
+public interface IJanrInterface : IRepository<Janr>
 {
     Task<List<Janr>> GetAllWithReleationsAsync();
 }

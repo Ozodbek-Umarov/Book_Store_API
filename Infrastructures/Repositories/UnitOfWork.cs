@@ -11,5 +11,5 @@ public class UnitOfWork(AppDbContext dbContext)
 
     public IBookInterface bookInterface => new BookRepository(dbContext);
 
-    IJanrInterface IUnitOfWork.janrInterface => new JanrRepository(dbContext);
+    public IJanrInterface janrInterface => new JanrRepository(dbContext);
 }
