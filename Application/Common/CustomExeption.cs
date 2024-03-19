@@ -13,7 +13,7 @@ public class CustomExeption : Exception
     }
 
     public CustomExeption(ValidationResult result)
-        : base(string.Join("\n", result.Errors.Select(x => x.ErrorMessage)))
+        : base(string.Join("\n", result.))
     {
        
     }

@@ -1,4 +1,6 @@
 using Application.Common;
+using Application.Interfaces;
+using Application.Services;
 using Application.Validators;
 using AutoMapper;
 using Domain.Entities;
@@ -32,6 +34,8 @@ builder.Services.AddSingleton(mapperConfig.CreateMapper());
 builder.Services.AddScoped<IValidator<Author>, AuthorValidator>();
 builder.Services.AddScoped<IValidator<Janr>, JanrValidator>();
 builder.Services.AddScoped<IValidator<Book>, BookValidator>();
+
+builder.Services.AddScoped<IAuthorService, AuthorService>();
 
 var app = builder.Build();
 

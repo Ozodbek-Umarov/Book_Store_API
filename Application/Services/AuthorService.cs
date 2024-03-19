@@ -27,27 +27,53 @@ public class AuthorService(IUnitOfWork unitOfWork,
         var result = await _validator.ValidateAsync(author);
         if (!result.IsValid)
         {
-            throw new CustomExeption(result.Errors);
+            throw new CustomExeption(result);
         }
+
+        await _unitOfWork.authorInterface.AddAsync(author);
     }
 
-    public Task DeleteAsync(int id)
+    public async Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var model = await _unitOfWork.authorInterface.GetByIdAsync(id);
+        if (model == null)
+        {
+            throw new CustomExeption("author topilmadi");
+        }
+        await _unitOfWork.authorInterface.DeleteAsync(model);
     }
 
-    public Task<List<AuthorDto>> GetAllAsync()
+    public async Task<List<AuthorDto>> GetAllAsync()
     {
-        throw new NotImplementedException();
+        var list = await _unitOfWork.authorInterface.GetAllAsync();
+        var result = list.Select(_mapper.Map<AuthorDto>)
+                        .ToList();
+        return result;
     }
 
-    public Task<AuthorDto> GetByIdAsync(int id)
+    public async Task<AuthorDto> GetByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        var model = await _unitOfWork.authorInterface.GetByIdAsync(id);
+        if (model == null)
+        {
+            throw new CustomExeption("author topilmadi");
+        }
+        return _mapper.Map<AuthorDto>(model);
     }
 
-    public Task UpdateAsync(AuthorDto dto)
+    public async Task UpdateAsync(AuthorDto dto)
     {
-        throw new NotImplementedException();
+        var model = await _unitOfWork.authorInterface.GetByIdAsync(dto.Id);
+        if (model == null)
+        {
+            throw new CustomExeption("author topilmadi");
+        }
+        var author = _mapper.Map<Author>(dto);
+        var result = await _validator.ValidateAsync(author);
+        if (!result.IsValid)
+        {
+            throw new CustomExeption("xato");
+        }
+        await _unitOfWork.authorInterface.UpdateAsync(author);
     }
 }
